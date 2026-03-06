@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisiomasso - Agenda da Equipe</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: { 
+                        primary: '#0092B8', 
+                        secondary: '#005F78',
+                        success: '#22C55E',
+                        danger: '#FF4D4D'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #F8FAFC; 
+            color: #1E293B; 
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0092B8; }
+
+        /* Components */
+        .card-shadow { 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 
+                        0 8px 10px -6px rgba(0, 0, 0, 0.05); 
+        }
+        
+        /* Animations */
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .scale-in { animation: scaleIn 0.2s ease-out forwards; }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes scaleIn { 
+            from { opacity: 0; transform: scale(0.95); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
+
+        /* Table States */
+        .bg-occupied { background-color: rgba(0, 146, 184, 0.03); }
+        
+        /* Buttons */
+        .btn-hover { transition: all 0.2s ease; cursor: pointer; }
+        .btn-hover:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .btn-hover:active { transform: translateY(0); }
+        
+        /* Table */
+        table { 
+            table-layout: auto;
+            width: 100%; 
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+<!-- Login Modal -->
+<div id="loginArea" class="fixed inset-0 bg-secondary/90 backdrop-blur-xl flex justify-center items-center z-[100] px-4">
+    <div class="bg-white w-full max-w-[400px] p-10 rounded-[40px] shadow-2xl text-center scale-in">
+        <div class="mb-8">
+            <div class="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-4">
+                <i class="ph ph-identification-card text-4xl text-primary"></i>
+            </div>
+            <h1 class="text-2xl font-800 text-secondary tracking-tight uppercase">Acesso Equipe</h1>
+        </div>
+        <form class="space-y-4 text-left" onsubmit="return false;">
+            <div>
+                <label for="email" class="text-[10px] font-800 text-gray-400 uppercase ml-2 mb-1 block">E-mail</label>
+                <input id="email" type="email" autocomplete="username" placeholder="seu@email.com" class="w-full rounded-2xl px-5 py-4 border border-gray-100 bg-gray-50 outline-none focus:ring-2 ring-primary/20 transition-all">
+            </div>
+            <div>
+                <label for="password" class="text-[10px] font-800 text-gray-400 uppercase ml-2 mb-1 block">Senha</label>
+                <input id="password" type="password" autocomplete="current-password" placeholder="••••••••" class="w-full rounded-2xl px-5 py-4 border border-gray-100 bg-gray-50 outline-none focus:ring-2 ring-primary/20 transition-all">
+            </div>
+            <button id="loginBtn" class="w-full bg-primary btn-hover text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/30 uppercase tracking-widest text-sm">Entrar no Painel</button>
+            <p id="loginError" class="text-danger text-center text-xs font-semibold min-h-[1rem]"></p>
+        </form>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div id="agendaArea" class="hidden">
+    <!-- Header -->
+    <header class="w-full bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto h-20 flex items-center justify-between px-6">
+            <div class="flex items-center gap-3">
+                <img src="assets/Logofisiomasso.png" alt="Logo" class="h-10 w-auto">
+            </div>
+            <button id="logoutBtn" class="group flex items-center gap-2 text-gray-400 hover:text-danger font-bold text-xs uppercase tracking-widest transition-all">
+                Sair <i class="ph ph-power text-lg group-hover:rotate-90 transition-transform"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+        <!-- Filters -->
+        <div class="bg-white p-6 rounded-[32px] border border-gray-100 card-shadow flex flex-col md:flex-row gap-4 mb-8 fade-in">
+            <div class="flex-1">
+                <label for="funcionario" class="text-[10px] font-800 text-gray-400 uppercase ml-2 mb-1 block">Profissional</label>
+                <select id="funcionario" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm font-bold text-secondary outline-none cursor-pointer hover:bg-gray-100 transition-colors"></select>
+            </div>
+            <div class="flex-1">
+                <label for="data" class="text-[10px] font-800 text-gray-400 uppercase ml-2 mb-1 block">Data Selecionada</label>
+                <input type="date" id="data" class="w-full bg-gray-50 border-none rounded-2xl px-5 py-4 text-sm font-bold text-secondary outline-none hover:bg-gray-100 transition-colors">
+            </div>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="bg-white rounded-[32px] border border-gray-100 card-shadow overflow-hidden fade-in" style="animation-delay: 0.1s;">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" style="table-layout: fixed;">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-100">
+                            <th class="px-4 py-5 text-[9px] font-900 text-gray-400 uppercase tracking-widest w-20">Hora</th>
+                            <th class="px-4 py-5 text-[9px] font-900 text-gray-400 uppercase tracking-widest">Paciente / Serviço</th>
+                            <th class="px-4 py-5 text-[9px] font-900 text-gray-400 uppercase tracking-widest text-right w-28">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendaTableBody" class="divide-y divide-gray-50"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal: Confirmacao -->
+<div id="modalConfirmacao" class="hidden fixed inset-0 bg-secondary/80 backdrop-blur-sm z-[200] flex justify-center items-center px-4">
+    <div class="bg-white w-full max-w-[350px] p-8 rounded-[32px] shadow-2xl scale-in text-center">
+        <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="ph ph-question text-3xl text-primary"></i>
+        </div>
+        <h3 class="text-lg font-800 text-secondary uppercase mb-2">Finalizar?</h3>
+        <p class="text-gray-500 text-sm mb-8">Deseja marcar este atendimento como concluído?</p>
+        <div class="flex gap-3">
+            <button onclick="window.fecharModal()" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-gray-400 bg-gray-50 hover:bg-gray-100 transition-colors">Cancelar</button>
+            <button id="btnConfirmarFinalizacao" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-white bg-primary shadow-lg shadow-primary/30 btn-hover">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+// ============================================================
+// IMPORTS
+// ============================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+    getFirestore, 
+    collection, 
+    getDocs, 
+    onSnapshot, 
+    updateDoc, 
+    doc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged, 
+    signOut 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+// ============================================================
+// FIREBASE CONFIG
+// ============================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyCWJZiUilkri_oCN4rLvmqFV5H_GhvEd6E",
+    authDomain: "fisioterapia-agendamento.firebaseapp.com",
+    projectId: "fisioterapia-agendamento",
+    storageBucket: "fisioterapia-agendamento.appspot.com",
+    messagingSenderId: "928899499645",
+    appId: "1:928899499645:web:e86a365a71c85f845c1314"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+// ============================================================
+// STATE
+// ============================================================
+let agendamentos = [];
+let unsubscribeSnap = null;
+let idParaFinalizar = null;
+
+// ============================================================
+// DOM ELEMENTS
+// ============================================================
+const elements = {
+    loginArea: document.getElementById("loginArea"),
+    agendaArea: document.getElementById("agendaArea"),
+    loginBtn: document.getElementById("loginBtn"),
+    logoutBtn: document.getElementById("logoutBtn"),
+    email: document.getElementById("email"),
+    password: document.getElementById("password"),
+    loginError: document.getElementById("loginError"),
+    funcionario: document.getElementById("funcionario"),
+    data: document.getElementById("data"),
+    tableBody: document.getElementById("agendaTableBody"),
+    modal: document.getElementById("modalConfirmacao"),
+    confirmBtn: document.getElementById("btnConfirmarFinalizacao")
+};
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+elements.data.valueAsDate = new Date();
+
+// ============================================================
+// AUTHENTICATION
+// ============================================================
+async function handleLogin() {
+    const email = elements.email.value;
+    const pass = elements.password.value;
+    elements.loginError.innerText = "";
+    
+    try {
+        await signInWithEmailAndPassword(auth, email, pass);
+    } catch {
+        elements.loginError.innerText = "Acesso negado. Verifique os dados.";
+    }
+}
+
+function handleLogout() {
+    signOut(auth);
+}
+
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        if (unsubscribeSnap) unsubscribeSnap();
+        elements.loginArea.classList.remove("hidden");
+        elements.agendaArea.classList.add("hidden");
+        return;
+    }
+    
+    const admins = await getDocs(collection(db, "admins"));
+    if (!admins.docs.some(d => d.id === user.uid)) {
+        alert("Acesso restrito à equipe.");
+        await signOut(auth);
+        return;
+    }
+
+    elements.loginArea.classList.add("hidden");
+    elements.agendaArea.classList.remove("hidden");
+    initData();
+});
+
+// ============================================================
+// DATA LOADING
+// ============================================================
+async function initData() {
+    const snap = await getDocs(collection(db, "funcionarios"));
+    elements.funcionario.innerHTML = snap.docs
+        .map(d => `<option value="${d.data().nome}">${d.data().nome}</option>`)
+        .join('');
+    
+    if (unsubscribeSnap) unsubscribeSnap();
+    
+    unsubscribeSnap = onSnapshot(collection(db, "agendamentos"), snap => {
+        agendamentos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderAgenda();
+    });
+}
+
+// ============================================================
+// RENDER AGENDA
+// ============================================================
+function renderAgenda() {
+    if (!elements.data.value || !elements.funcionario.value) return;
+
+    const selectedFunc = elements.funcionario.value.trim().toLowerCase();
+    const selectedDate = elements.data.value;
+    const isSexta = new Date(selectedDate + "T00:00").getDay() === 5;
+
+    const horarios = ["08:00", "09:00", "10:00", "11:00", "15:00", "16:00", "17:00", "18:00"];
+    if (!isSexta) horarios.push("19:00");
+
+    elements.tableBody.innerHTML = horarios.map(hora => {
+        const ag = agendamentos.find(a => 
+            a.funcionario?.trim().toLowerCase() === selectedFunc && 
+            a.data === selectedDate && 
+            a.horario === hora && 
+            ["confirmado", "finalizado"].includes(a.status?.toLowerCase())
+        );
+
+        const isFin = ag?.status?.toLowerCase() === "finalizado";
+        const rowClass = ag ? (isFin ? 'bg-gray-50/50 opacity-60' : 'bg-occupied') : '';
+
+        return `
+            <tr class="${rowClass} border-b border-gray-50 transition-all">
+                <td class="px-4 py-5 w-20 whitespace-nowrap align-top">
+                    <span class="text-xs font-800 ${isFin ? 'text-gray-400' : 'text-secondary'}">${hora}</span>
+                </td>
+                
+                <td class="px-4 py-5">
+                    ${ag ? `
+                        <div class="flex flex-col min-w-0 h-auto">
+                            <span class="text-[11px] md:text-sm font-800 uppercase leading-normal break-words ${isFin ? 'text-gray-400' : 'text-secondary'}">
+                                ${ag.nomeCompleto}
+                            </span>
+                            <span class="text-[9px] font-bold text-primary mt-1 break-words">
+                                ${ag.servico}
+                            </span>
+                            ${isFin ? '<span class="text-[8px] font-900 text-success uppercase mt-2 block">✓ Finalizado</span>' : ''}
+                        </div>
+                    ` : `<span class="text-[10px] font-bold text-gray-200 uppercase tracking-widest">Livre</span>`}
+                </td>
+
+                <td class="px-4 py-5 w-28 text-right align-top">
+                    <div class="flex justify-end gap-2">
+                        ${ag && !isFin ? `
+                            <button onclick="window.concluir('${ag.id}')" class="bg-primary text-white p-2.5 rounded-xl btn-hover active:scale-90 shadow-sm">
+                                <i class="ph ph-check-circle text-lg"></i>
+                            </button>
+                            <a href="https://wa.me/${ag.whatsapp?.replace(/\D/g, '')}" target="_blank" class="bg-success text-white p-2.5 rounded-xl btn-hover active:scale-90 shadow-sm">
+                                <i class="ph ph-whatsapp-logo text-lg"></i>
+                            </a>
+                        ` : ag && isFin ? `
+                            <i class="ph ph-seal-check text-success text-2xl pr-2"></i>
+                        ` : `
+                            <i class="ph ph-calendar-blank text-gray-100 text-xl pr-2"></i>
+                        `}
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// ============================================================
+// MODAL CONTROLS
+// ============================================================
+window.concluir = (id) => {
+    idParaFinalizar = id;
+    elements.modal.classList.remove("hidden");
+    elements.modal.classList.add("flex");
+};
+
+window.fecharModal = () => {
+    elements.modal.classList.remove("flex");
+    elements.modal.classList.add("hidden");
+    idParaFinalizar = null;
+};
+
+async function confirmarFinalizacao() {
+    if (!idParaFinalizar) return;
+    
+    try {
+        await updateDoc(doc(db, "agendamentos", idParaFinalizar), { status: "finalizado" });
+        window.fecharModal();
+    } catch (e) {
+        alert("Erro ao atualizar.");
+    }
+}
+
+// ============================================================
+// EVENT LISTENERS
+// ============================================================
+elements.loginBtn.addEventListener("click", handleLogin);
+elements.logoutBtn.addEventListener("click", handleLogout);
+elements.funcionario.addEventListener("change", renderAgenda);
+elements.data.addEventListener("change", renderAgenda);
+elements.confirmBtn.addEventListener("click", confirmarFinalizacao);
+</script>
+</body>
+</html>

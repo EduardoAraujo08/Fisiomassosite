@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fisiomasso</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="shortcut icon" href="assets/favicon.svg" type="image/x-icon">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: { 
+                        primary: '#0092B8', 
+                        primaryHover: '#00A3CF', 
+                        secondary: '#005F78' 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+        html { scroll-behavior: smooth; }
+        
+       
+        select { 
+            appearance: none; 
+            -webkit-appearance: none; 
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2362748E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+    </style>
+</head>
+
+<body class="font-inter bg-white flex flex-col items-center">
+
+<header class="fixed top-0 z-10 bg-white w-full flex justify-center border-b">
+    <nav class="w-full max-w-[1120px] flex items-center justify-between h-16 my-4 px-4">
+        <img src="assets/Logofisiomasso.png" alt="Logo Fisiomasso" class="w-[166px] h-[56px]">
+        <ul class="hidden md:flex gap-12 text-[#45556C]">
+            <li><a href="#" class="hover:text-primary transition">Inicio</a></li>
+            <li><a href="#servicos" class="hover:text-primary transition">Servicos</a></li>
+            <li><a href="#sobre" class="hover:text-primary transition">Sobre</a></li>
+        </ul>
+        <a href="#agendar" class="bg-primary hover:bg-primaryHover text-white px-6 py-2 rounded-full text-sm transition-all">
+            Agendar Avaliacao
+        </a>
+    </nav>
+</header>
+
+<main class="w-full flex flex-col items-center mt-[110px]">
+
+    <section class="w-full max-w-[1120px] flex flex-col md:flex-row px-4 mb-14 md:gap-[73px]">
+        <div class="flex flex-col max-w-[626px]">
+            <div class="bg-[#CEFAFE] px-4 py-2 rounded-lg w-fit flex items-center gap-2 my-[24px]">
+                <i class="ph ph-star text-primary"></i>
+                <span class="text-primary font-semibold">5.0 em avaliacoes</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl md:leading-[56px]">
+                Fisioterapia especializada para saude, movimento e qualidade de vida
+            </h1>
+            <p class="text-[#62748E] text-lg mt-5 max-w-[547px]">
+                Cuidamos do seu corpo unindo prevencao, reabilitacao e preparacao fisica.
+            </p>
+            <a href="#agendar">
+                <button class="bg-primary hover:bg-primaryHover text-white px-8 py-4 rounded-full mt-8">
+                    Marcar uma Avaliacao
+                </button>
+            </a>
+        </div>
+        <img src="assets/IMGhero.png" alt="Hero Fisiomasso" class="w-full my-[24px] md:flex md:w-auto">
+    </section>
+
+    <section class="w-full bg-[#E2E8F0] py-14">
+        <div class="max-w-[1120px] mx-auto flex flex-col md:flex-row gap-14 px-4">
+            <div class="flex flex-col items-center text-center max-w-[344px] mx-auto">
+                <div class="p-4 bg-white rounded-full border border-primary shadow-lg shadow-primary/30 max-h-[64px] w-[64px] flex items-center justify-center">
+                    <i class="ph ph-certificate text-2xl text-primary"></i>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">Profissionais certificados</h3>
+                <p class="mt-2 text-[#62748E] font-semibold max-w-[300px]">Contamos com um time de especialistas na area</p>
+            </div>
+            <div class="flex flex-col items-center text-center max-w-[344px] mx-auto">
+                <div class="p-4 bg-white rounded-full border border-primary shadow-lg shadow-primary/30 max-h-[64px] w-[64px] flex items-center justify-center">
+                    <i class="ph ph-user-circle text-2xl text-primary"></i>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">Servicos personalizados</h3>
+                <p class="mt-2 text-[#62748E] font-semibold max-w-[276px]">Fazemos a Fisioterapia acontecer do seu jeito</p>
+            </div>
+            <div class="flex flex-col items-center text-center max-w-[344px] mx-auto">
+                <div class="p-4 bg-white rounded-full border border-primary shadow-lg shadow-primary/30 max-h-[64px] w-[64px] flex items-center justify-center">
+                    <i class="ph ph-house-line text-2xl text-primary"></i>
+                </div>
+                <h3 class="mt-4 text-xl font-semibold">Espaco acolhedor</h3>
+                <p class="mt-2 text-[#62748E] font-semibold max-w-[294px]">Temos um ambiente agradavel para cuidar de voce</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="w-full bg-secondary py-14 flex flex-col items-center gap-14 px-4">
+        <div class="w-full max-w-[1120px] h-[420px] md:h-[670px] rounded-2xl border border-[#A2F4FD] bg-cover bg-center flex items-end p-6 md:p-14"
+            style="background-image:url('assets/IMGreabilitacao.png')">
+            <div class="text-white max-w-[490px]">
+                <h2 class="text-2xl md:text-3xl mb-4 font-bold">Reabilitacao e Pos Operatorio</h2>
+                <p>Trabalhamos para reduzir dores, evitar complicacoes, recuperar movimentos e devolver autonomia.</p>
+            </div>
+        </div>
+        <div class="w-full max-w-[1120px] h-[420px] md:h-[670px] rounded-2xl border border-[#A2F4FD] bg-cover bg-center flex items-end p-6 md:p-14"
+            style="background-image:url('assets/IMGfortalecimento.png')">
+            <div class="text-white max-w-[490px]">
+                <h2 class="text-2xl md:text-3xl mb-4 font-bold">Fortalecimento</h2>
+                <p>Melhora a estabilidade, resistencia e controle, para prevencao de lesoes e reabilitacao funcional.</p>
+            </div>
+        </div>
+        <div class="w-full max-w-[1120px] h-[420px] md:h-[670px] rounded-2xl border border-[#A2F4FD] bg-cover bg-center flex items-end p-6 md:p-14"
+            style="background-image:url('assets/IMGliberacao.png')">
+            <div class="text-white max-w-[490px]">
+                <h2 class="text-2xl md:text-3xl mb-4 font-bold">Liberacao miofascial</h2>
+                <p>Ideal para recuperacao muscular, prevencao de lesoes e melhora do desempenho fisico.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="agendar" class="w-full py-24 bg-[#F7FBFD] flex justify-center px-4">
+        <div class="w-full max-w-[640px] bg-white rounded-[32px] shadow-2xl p-8 md:p-12 border">
+            <div class="text-center mb-12">
+                <span class="text-primary text-sm font-bold uppercase tracking-widest">TRIAGEM RAPIDA</span>
+                <h2 class="text-3xl mt-4 font-bold text-secondary">Agendar minha Avaliacao</h2>
+                <p class="text-[#62748E] mt-3 text-[15px]">Conte-nos um pouco sobre o seu caso para agilizarmos seu atendimento.</p>
+            </div>
+
+            <form id="formAgendamento" class="space-y-6" novalidate>
+                <div>
+                    <label for="nome" class="text-sm font-semibold text-[#62748E]">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" required 
+                        class="w-full mt-2 px-4 py-3 border rounded-2xl transition-all focus:border-primary outline-none" 
+                        placeholder="Nome e Sobrenome" maxlength="30">
+                </div>
+
+                <div>
+                    <label for="whatsCliente" class="text-sm font-semibold text-[#62748E]">Seu WhatsApp</label>
+                    <input type="text" id="whatsCliente" name="whatsCliente" required 
+                        class="w-full mt-2 px-4 py-3 border rounded-2xl transition-all focus:border-primary outline-none" 
+                        placeholder="(00) 00000-0000" maxlength="15">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="idade" class="text-sm font-semibold text-[#62748E]">Qual Sua Idade?</label>
+                        <input type="text" id="idade" name="idade" required 
+                            class="w-full mt-2 px-4 py-3 border rounded-2xl transition-all focus:border-primary outline-none" 
+                            placeholder="Ex: 25" maxlength="2">
+                    </div>
+                    <div>
+                        <label for="objetivo" class="text-sm font-semibold text-[#62748E]">Servico Desejado</label>
+                        <select id="objetivo" name="objetivo" required class="w-full mt-2 px-4 py-3 border rounded-2xl transition-all focus:border-primary outline-none">
+                            <option value="" disabled selected>Selecione</option>
+                            <option>Pos-Operatorio</option>
+                            <option>Reabilitacao</option>
+                            <option>Preparacao Fisica</option>
+                            <option>Fisioterapia Pediatrica</option>
+                            <option>Cuidado e Prevencao na Terceira Idade</option>
+                            <option>Liberacao Miofascial e Alivio de Dores</option>
+                            <option>Fisioterapia Preventiva</option>
+                            <option>Outros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="periodo" class="text-sm font-semibold text-[#62748E]">Qual periodo voce prefere?</label>
+                    <select id="periodo" name="periodo" required class="w-full mt-2 px-4 py-3 border rounded-2xl transition-all focus:border-primary outline-none">
+                        <option value="" disabled selected>Selecione o periodo</option>
+                        <option>Manha (08h as 12h)</option>
+                        <option>Tarde (15h as 18h)</option>
+                        <option>Noite (18h as 20h)</option>
+                        <option>Qualquer horario</option>
+                    </select>
+                </div>
+
+                <p id="feedbackMsg" class="text-center text-sm font-bold hidden"></p>
+
+                <button type="submit" class="w-full py-4 bg-primary text-white rounded-2xl hover:bg-primaryHover font-bold flex items-center justify-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+                    Enviar e Falar no WhatsApp
+                </button>
+            </form>
+
+            <div class="mt-8 text-center border-t pt-8">
+                <a href="https://www.instagram.com/fisiomasso_olimpia/" target="_blank" 
+                    class="flex items-center gap-3 px-6 py-3 bg-white border border-gray-100 rounded-2xl text-secondary font-bold text-xs uppercase tracking-widest shadow-sm hover:shadow-md hover:border-primary/30 transition-all group">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] rounded-lg flex items-center justify-center text-white shadow-lg shadow-pink-500/20">
+                        <i class="ph ph-instagram-logo text-lg"></i>
+                    </div>
+                    <span class="group-hover:text-primary transition-colors">Ver Trabalhos Realizados</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="py-24 text-center max-w-[744px] w-[90%] mx-auto">
+        <span class="bg-[#CEFAFE] text-primary font-bold px-4 py-2 rounded-lg">Sobre nos</span>
+        <h2 class="text-4xl md:text-5xl mt-6">Conheca a Fisiomasso</h2>
+        <p class="mt-5 text-[#62748E] text-lg leading-relaxed">
+            Ha mais de 4 anos, acreditamos que movimento e qualidade de vida. Nosso trabalho e focado no cuidado individualizado, unindo fisioterapia, massoterapia e preparacao fisica para promover saude, prevencao e reabilitacao de forma completa e eficaz.
+        </p>
+    </section>
+
+</main>
+
+<footer class="py-12 bg-white text-center border-t w-full px-4">
+    <div class="mb-4">
+        <a href="https://www.instagram.com/fisiomasso_olimpia/" target="_blank" class="text-primary font-bold hover:text-primaryHover">
+            @fisiomasso_olimpia
+        </a>
+    </div>
+    <p class="text-[#90A1B9] text-sm">Fisiomasso, 2026. Todos os direitos reservados.</p>
+    <p class="text-[#90A1B9] text-xs mt-1">R. Sao Joao, 29 - Olimpia - SP, 15400-065</p>
+</footer>
+
+<script>
+(function() {
+    const elements = {
+        form: document.getElementById("formAgendamento"),
+        nome: document.getElementById("nome"),
+        whatsCliente: document.getElementById("whatsCliente"),
+        idade: document.getElementById("idade"),
+        objetivo: document.getElementById("objetivo"),
+        periodo: document.getElementById("periodo"),
+        feedbackMsg: document.getElementById("feedbackMsg")
+    };
+
+    function showFeedback(message, isError = true) {
+        elements.feedbackMsg.textContent = message;
+        elements.feedbackMsg.className = `text-center text-sm font-bold block mt-4 ${isError ? 'text-red-500' : 'text-green-500'}`;
+        elements.feedbackMsg.classList.remove("hidden");
+    }
+
+    function hideFeedback() {
+        elements.feedbackMsg.classList.add("hidden");
+    }
+
+    function formatWhatsApp(value) {
+        const match = value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+        return !match[2] ? match[1] : '(' + match[1] + ') ' + match[2] + (match[3] ? '-' + match[3] : '');
+    }
+
+    function validateForm(nome, whats, servico, idade, periodo) {
+        const temSobrenome = nome.split(" ").filter(p => p.length > 1).length >= 2;
+        const numerosApenas = whats.replace(/\D/g, "");
+
+        if (!temSobrenome) return "Por favor, digite seu nome e sobrenome.";
+        if (numerosApenas.length < 10) return "Insira um WhatsApp valido com DDD.";
+        if (!servico) return "Selecione um servico.";
+        if (!idade) return "Digite sua idade.";
+        if (!periodo) return "Selecione o periodo de preferencia.";
+        
+        return null;
+    }
+
+    function buildWhatsAppMessage(nome, whats, idade, servico, periodo) {
+        return `--- SOLICITACAO DE AGENDAMENTO ---\n` +
+            `       FISIOMASSO | OLIMPIA\n\n` +
+            `[ IDENTIFICACAO DO PACIENTE ]\n` +
+            `> NOME: ${nome.toUpperCase()}\n` +
+            `> WHATSAPP: ${whats}\n` +
+            `> IDADE: ${idade} ANOS\n\n` +
+            `[ DETALHES DA SESSAO ]\n` +
+            `> SERVICO: ${servico}\n` +
+            `> PERIODO: ${periodo}\n\n` +
+            `----------------------------------\n` +
+            `SOLICITACAO ENVIADA VIA SITE FISIOMASSO`;
+    }
+
+    function handleWhatsAppInput(e) {
+        e.target.value = formatWhatsApp(e.target.value);
+    }
+
+    function handleAgeInput(e) {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    }
+
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        
+        const nomeV = elements.nome.value.trim();
+        const whatsV = elements.whatsCliente.value.trim();
+        const servicoV = elements.objetivo.value;
+        const idadeV = elements.idade.value;
+        const periodoV = elements.periodo.value;
+
+        const erro = validateForm(nomeV, whatsV, servicoV, idadeV, periodoV);
+        
+        if (erro) {
+            showFeedback(erro, true);
+            return;
+        }
+
+        const mensagem = buildWhatsAppMessage(nomeV, whatsV, idadeV, servicoV, periodoV);
+        const urlWhats = `https://wa.me/5517991062976?text=${encodeURIComponent(mensagem)}`;
+        
+        showFeedback("Solicitacao enviada! Redirecionando...", false);
+
+        setTimeout(() => { 
+            window.open(urlWhats, '_blank'); 
+        }, 600);
+    }
+
+    elements.whatsCliente.addEventListener("input", handleWhatsAppInput);
+    elements.idade.addEventListener("input", handleAgeInput);
+    elements.form.addEventListener("submit", handleFormSubmit);
+
+    const formInputs = elements.form.querySelectorAll('input, select');
+    formInputs.forEach(input => {
+        input.addEventListener('input', hideFeedback);
+        input.addEventListener('change', hideFeedback);
+    });
+})();
+</script>
+</body>
+</html>
