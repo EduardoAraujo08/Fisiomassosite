@@ -21,7 +21,9 @@
                         accent: '#00D1FF',
                         danger: '#FF4D4D',
                         success: '#22C55E',
-                        history: '#6366F1'
+                        history: '#8B5CF6',
+                        historyDark: '#7C3AED',
+                        historyLight: '#A78BFA'
                     }
                 }
             }
@@ -32,7 +34,8 @@
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #F8FAFC; 
-            color: #1E293B; 
+            color: #1E293B;
+            transition: all 0.4s ease;
         }
         
 
@@ -49,9 +52,14 @@
         
         
         .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .scale-in { animation: scaleIn 0.3s ease-out forwards; }
         @keyframes fadeIn { 
             from { opacity: 0; transform: translateY(10px); } 
             to { opacity: 1; transform: translateY(0); } 
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         
       
@@ -100,12 +108,186 @@
             text-align: center; 
             min-width: 200px; 
         }
+
+        /* ========== HISTORY MODE - PAINEL TOTALMENTE DIFERENTE ========== */
+        .history-mode {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%) !important;
+            color: #E2E8F0 !important;
+        }
+
+        .history-mode header {
+            background: rgba(30, 27, 75, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        .history-mode .logo-container {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 8px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .history-mode .bg-white {
+            background: rgba(30, 27, 75, 0.8) !important;
+            border-color: rgba(139, 92, 246, 0.3) !important;
+        }
+
+        .history-mode .bg-gray-50 {
+            background: rgba(49, 46, 129, 0.6) !important;
+        }
+
+        .history-mode .text-secondary {
+            color: #C4B5FD !important;
+        }
+
+        .history-mode .text-gray-400,
+        .history-mode .text-gray-500 {
+            color: #A5B4FC !important;
+        }
+
+        /* Inputs e Selects no modo histórico - NÃO PRETOS */
+        .history-mode input,
+        .history-mode select {
+            background: rgba(99, 102, 241, 0.15) !important;
+            color: #E0E7FF !important;
+            border-color: rgba(139, 92, 246, 0.4) !important;
+        }
+
+        .history-mode input::placeholder {
+            color: #A5B4FC !important;
+        }
+
+        /* Calendar/Date picker específico */
+        .history-mode input[type="date"] {
+            background: rgba(99, 102, 241, 0.2) !important;
+            color: #E0E7FF !important;
+        }
+
+        .history-mode input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(2);
+        }
+
+        /* Cards do histórico - ROXOS E BONITOS */
+        .history-mode .history-card {
+            background: linear-gradient(145deg, rgba(139, 92, 246, 0.25) 0%, rgba(124, 58, 237, 0.15) 100%) !important;
+            border: 1px solid rgba(167, 139, 250, 0.4) !important;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.2), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .history-mode .history-card:hover {
+            border-color: rgba(167, 139, 250, 0.6) !important;
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .history-mode .history-card .inner-box {
+            background: rgba(49, 46, 129, 0.5) !important;
+        }
+
+        /* Título do histórico */
+        .history-mode .history-title {
+            background: linear-gradient(90deg, #A78BFA, #C4B5FD);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scrollbar no modo histórico */
+        .history-mode::-webkit-scrollbar-thumb { 
+            background: #8B5CF6; 
+        }
+        .history-mode::-webkit-scrollbar-thumb:hover { 
+            background: #A78BFA; 
+        }
+
+        /* Badge finalizado no modo histórico */
+        .history-mode .badge-finalizado {
+            background: linear-gradient(135deg, #8B5CF6, #7C3AED) !important;
+            color: white !important;
+        }
+
+        /* Botões no modo histórico */
+        .history-mode .btn-reabrir {
+            background: rgba(139, 92, 246, 0.2) !important;
+            color: #C4B5FD !important;
+            border: 1px solid rgba(139, 92, 246, 0.4) !important;
+        }
+
+        .history-mode .btn-reabrir:hover {
+            background: rgba(139, 92, 246, 0.4) !important;
+        }
+
+        /* Filter bar no modo histórico */
+        .history-mode .filter-bar {
+            background: rgba(30, 27, 75, 0.9) !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        }
+
+        /* Efeito de brilho nos cards */
+        .history-mode .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.5), transparent);
+        }
+
+        /* Botões desabilitados no modo histórico */
+        .history-mode .btn-disabled {
+            opacity: 0.4 !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+        }
+
+        
     </style>
 </head>
 <body class="min-h-screen">
 
 
 <div id="toast-container"></div>
+
+<!-- MODAL DE EXCLUSÃO -->
+<div id="modalExclusao" class="hidden fixed inset-0 bg-secondary/80 backdrop-blur-md z-[200] flex justify-center items-center px-4">
+    <div class="bg-white w-full max-w-[380px] p-8 rounded-[32px] shadow-2xl scale-in text-center">
+        <div class="w-20 h-20 bg-red-50 rounded-3xl flex items-center justify-center mx-auto mb-5">
+            <i class="ph ph-trash text-4xl text-red-500"></i>
+        </div>
+        <h3 class="text-xl font-800 text-secondary uppercase mb-2">EXCLUIR?</h3>
+        <p id="msgExclusao" class="text-gray-500 text-sm mb-8">Deseja excluir permanentemente este registro?</p>
+        <div class="flex gap-3">
+            <button onclick="window.fecharModalExclusao()" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors">
+                CANCELAR
+            </button>
+            <button id="btnConfirmarExclusao" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-white bg-red-500 shadow-lg shadow-red-500/30 btn-hover">
+                CONFIRMAR
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE FINALIZAÇÃO -->
+<div id="modalFinalizacao" class="hidden fixed inset-0 bg-secondary/80 backdrop-blur-md z-[200] flex justify-center items-center px-4">
+    <div class="bg-white w-full max-w-[380px] p-8 rounded-[32px] shadow-2xl scale-in text-center">
+        <div class="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-5">
+            <i class="ph ph-question text-4xl text-primary"></i>
+        </div>
+        <h3 class="text-xl font-800 text-secondary uppercase mb-2">FINALIZAR?</h3>
+        <p class="text-gray-500 text-sm mb-8">Deseja marcar este atendimento como concluído?</p>
+        <div class="flex gap-3">
+            <button onclick="window.fecharModalFinalizacao()" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-gray-500 bg-gray-100 hover:bg-gray-200 transition-colors">
+                CANCELAR
+            </button>
+            <button id="btnConfirmarFinalizacao" class="flex-1 py-4 rounded-2xl font-bold text-xs uppercase text-white bg-primary shadow-lg shadow-primary/30 btn-hover">
+                CONFIRMAR
+            </button>
+        </div>
+    </div>
+</div>
 
 <div id="loginModal" class="fixed inset-0 bg-secondary/90 backdrop-blur-xl flex justify-center items-center z-[100] px-4">
     <div class="bg-white w-full max-w-[400px] p-10 rounded-[40px] shadow-2xl text-center">
@@ -133,8 +315,16 @@
 <div id="topArea" class="hidden">
     <header class="w-full bg-white/80 backdrop-blur-md border-b sticky top-0 z-50">
         <div class="max-w-7xl mx-auto h-20 flex items-center justify-between px-6">
-            <div class="flex items-center gap-3">
-                <img src="assets/Logofisiomasso.png" alt="Logo Fisiomasso" class="h-10 w-auto">
+            <div class="flex items-center gap-3 logo-container">
+                <!-- Logo normal (visível no modo padrão) -->
+                <div id="logoNormal" class="flex items-center gap-3">
+                    <img src="assets/Logofisiomasso.png" alt="Logo Fisiomasso" class="h-10 w-auto object-contain" style="filter: none;">
+                    <span class="font-800 text-secondary text-lg hidden sm:block"></span>
+                </div>
+                <!-- Texto do histórico (visível no modo histórico) -->
+                <div id="logoHistorico" class="hidden">
+                    <span class="font-800 text-white text-lg history-title">FINALIZADOS</span>
+                </div>
             </div>
             <button onclick="window.logout()" class="group flex items-center gap-2 text-gray-400 hover:text-danger font-bold text-xs uppercase tracking-widest transition-all">
                 Sair <i class="ph ph-power text-lg group-hover:rotate-90"></i>
@@ -144,7 +334,7 @@
 
     <main class="max-w-7xl mx-auto p-4 md:p-8">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <button onclick="window.toggleForm('agendamento')" class="bg-primary p-6 rounded-[32px] text-white flex flex-col items-center justify-center gap-2 shadow-xl shadow-primary/20 btn-hover">
+            <button id="btnNovoRegistro" onclick="window.toggleForm('agendamento')" class="bg-primary p-6 rounded-[32px] text-white flex flex-col items-center justify-center gap-2 shadow-xl shadow-primary/20 btn-hover">
                 <i class="ph ph-plus-circle text-3xl"></i>
                 <span class="font-bold text-xs uppercase tracking-widest">Novo Registro</span>
             </button>
@@ -156,13 +346,13 @@
                 <p class="text-[10px] uppercase font-800 text-gray-400 tracking-widest mb-1">Confirmados</p>
                 <span id="confirmadosCount" class="text-3xl font-800 text-green-500">0</span>
             </div>
-            <button onclick="window.toggleHistorico()" id="btnHistorico" class="bg-white p-6 rounded-[32px] border border-gray-100 card-shadow flex flex-col items-center justify-center gap-1 btn-hover">
+            <button onclick="window.toggleHistorico()" id="btnHistorico" class="bg-white p-6 rounded-[32px] border border-gray-100 card-shadow flex flex-col items-center justify-center gap-1 btn-hover transition-all duration-300">
                 <p id="txtHistorico" class="text-[10px] uppercase font-800 text-history tracking-widest">Histórico (<span id="historicoCount">0</span>)</p>
                 <i id="iconHistorico" class="ph ph-clock-counter-clockwise text-2xl text-history"></i>
             </button>
         </div>
 
-        <div class="bg-white p-4 rounded-[28px] border border-gray-100 card-shadow flex flex-col md:flex-row md:flex-wrap gap-3 mb-8">
+        <div class="filter-bar bg-white p-4 rounded-[28px] border border-gray-100 card-shadow flex flex-col md:flex-row md:flex-wrap gap-3 mb-8 transition-all duration-300">
             <div class="relative flex-[2] min-w-[200px] w-full md:w-auto">
                 <label for="searchInput" class="sr-only">Buscar por nome ou WhatsApp</label>
                 <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
@@ -181,7 +371,7 @@
                     <option value="sem_funcionario">Sem Funcionário</option>
                 </select>
             </div>
-            <button onclick="window.toggleForm('funcionario')" class="bg-secondary text-white px-6 py-4 rounded-2xl font-bold text-xs uppercase tracking-widest btn-hover self-center md:self-auto">
+            <button id="btnEquipe" onclick="window.toggleForm('funcionario')" class="bg-secondary text-white px-6 py-4 rounded-2xl font-bold text-xs uppercase tracking-widest btn-hover self-center md:self-auto">
                 Equipe
             </button>
         </div>
@@ -332,6 +522,8 @@ let agendamentos = [];
 let funcionarios = [];
 let unsubscribe = null;
 let mostrandoHistorico = false;
+let idParaExcluir = null;
+let idParaFinalizar = null;
 
 const elements = {
     loginModal: document.getElementById('loginModal'),
@@ -362,7 +554,16 @@ const elements = {
     servicoAdmin: document.getElementById('servicoAdmin'),
     dataInicioRec: document.getElementById('dataInicioRec'),
     mesesRec: document.getElementById('mesesRec'),
-    toastContainer: document.getElementById('toast-container')
+    toastContainer: document.getElementById('toast-container'),
+    modalExclusao: document.getElementById('modalExclusao'),
+    msgExclusao: document.getElementById('msgExclusao'),
+    btnConfirmarExclusao: document.getElementById('btnConfirmarExclusao'),
+    modalFinalizacao: document.getElementById('modalFinalizacao'),
+    btnConfirmarFinalizacao: document.getElementById('btnConfirmarFinalizacao'),
+    logoNormal: document.getElementById('logoNormal'),
+    logoHistorico: document.getElementById('logoHistorico'),
+    btnNovoRegistro: document.getElementById('btnNovoRegistro'),
+    btnEquipe: document.getElementById('btnEquipe')
 };
 
 function showMsg(texto, tipo) {
@@ -377,6 +578,60 @@ window.showMsg = showMsg;
 function generateUniqueId() {
     return Math.random().toString(36).substr(2, 9);
 }
+
+// ========== MODAL DE EXCLUSÃO ==========
+window.abrirModalExclusao = (id) => {
+    const agendamento = agendamentos.find(a => a.id === id);
+    const nome = agendamento ? agendamento.nomeCompleto : "este registro";
+    
+    idParaExcluir = id;
+    elements.msgExclusao.innerText = `Deseja excluir permanentemente o registro de "${nome}"?`;
+    elements.modalExclusao.classList.remove('hidden');
+    elements.modalExclusao.classList.add('flex');
+};
+
+window.fecharModalExclusao = () => {
+    elements.modalExclusao.classList.remove('flex');
+    elements.modalExclusao.classList.add('hidden');
+    idParaExcluir = null;
+};
+
+elements.btnConfirmarExclusao.addEventListener('click', async () => {
+    if (!idParaExcluir) return;
+    
+    try {
+        await deleteDoc(doc(db, "agendamentos", idParaExcluir));
+        showMsg("Registro removido com sucesso!", "sucesso");
+        window.fecharModalExclusao();
+    } catch (error) {
+        showMsg("Erro ao excluir", "erro");
+    }
+});
+
+// ========== MODAL DE FINALIZAÇÃO ==========
+window.abrirModalFinalizacao = (id) => {
+    idParaFinalizar = id;
+    elements.modalFinalizacao.classList.remove('hidden');
+    elements.modalFinalizacao.classList.add('flex');
+};
+
+window.fecharModalFinalizacao = () => {
+    elements.modalFinalizacao.classList.remove('flex');
+    elements.modalFinalizacao.classList.add('hidden');
+    idParaFinalizar = null;
+};
+
+elements.btnConfirmarFinalizacao.addEventListener('click', async () => {
+    if (!idParaFinalizar) return;
+    
+    try {
+        await updateDoc(doc(db, "agendamentos", idParaFinalizar), { status: 'finalizado' });
+        showMsg("Atendimento finalizado!", "sucesso");
+        window.fecharModalFinalizacao();
+    } catch (error) {
+        showMsg("Erro ao finalizar", "erro");
+    }
+});
 
 window.login = async () => {
     const email = elements.adminEmail.value;
@@ -437,6 +692,12 @@ function atualizarEstatisticas() {
 }
 
 window.toggleForm = (id) => {
+    // Bloqueia abertura dos modais no modo histórico
+    if (mostrandoHistorico && (id === 'agendamento' || id === 'funcionario')) {
+        showMsg("Volte ao modo normal para acessar", "erro");
+        return;
+    }
+    
     const el = id === 'agendamento' ? elements.formAgendamento : elements.formFuncionario;
     el.classList.toggle('hidden');
     
@@ -469,20 +730,40 @@ window.toggleRecurrencia = () => {
 
 window.toggleHistorico = () => {
     mostrandoHistorico = !mostrandoHistorico;
+
+    const baseClasses = "p-6 rounded-[32px] card-shadow flex flex-col items-center justify-center gap-1 btn-hover transition-all duration-300";
     
-    const baseClasses = "p-6 rounded-[32px] card-shadow flex flex-col items-center justify-center gap-1 btn-hover";
     elements.btnHistorico.className = mostrandoHistorico 
-        ? `bg-history ${baseClasses}` 
+        ? `bg-gradient-to-br from-history to-historyDark ${baseClasses}` 
         : `bg-white border border-gray-100 ${baseClasses}`;
-    
+
     elements.txtHistorico.className = mostrandoHistorico 
         ? "text-[10px] uppercase font-800 text-white tracking-widest" 
         : "text-[10px] uppercase font-800 text-history tracking-widest";
-    
+
     elements.iconHistorico.className = mostrandoHistorico 
         ? "ph ph-clock-counter-clockwise text-2xl text-white" 
         : "ph ph-clock-counter-clockwise text-2xl text-history";
-    
+
+    // ATIVA OU DESATIVA HISTORY MODE
+    if (mostrandoHistorico) {
+        document.body.classList.add("history-mode");
+        // Mostra texto do histórico, esconde logo
+        elements.logoNormal.classList.add("hidden");
+        elements.logoHistorico.classList.remove("hidden");
+        // Desabilita botões
+        elements.btnNovoRegistro.classList.add("btn-disabled");
+        elements.btnEquipe.classList.add("btn-disabled");
+    } else {
+        document.body.classList.remove("history-mode");
+        // Mostra logo, esconde texto do histórico
+        elements.logoNormal.classList.remove("hidden");
+        elements.logoHistorico.classList.add("hidden");
+        // Habilita botões
+        elements.btnNovoRegistro.classList.remove("btn-disabled");
+        elements.btnEquipe.classList.remove("btn-disabled");
+    }
+
     renderCards();
 };
 
@@ -630,20 +911,6 @@ window.setStatus = async (id, novoStatus) => {
     }
 };
 
-window.excluir = async (id) => {
-    const agendamento = agendamentos.find(a => a.id === id);
-    const nome = agendamento ? agendamento.nomeCompleto : "este registro";
-
-    if (confirm(`Tem certeza que deseja excluir permanentemente o registro de "${nome}"?`)) {
-        try {
-            await deleteDoc(doc(db, "agendamentos", id));
-            showMsg("Registro removido!", "sucesso");
-        } catch (error) {
-            showMsg("Erro ao excluir", "erro");
-        }
-    }
-};
-
 function renderCards() {
     const busca = elements.searchInput.value.toLowerCase();
     const buscaData = elements.searchDate.value;
@@ -675,45 +942,61 @@ function renderCards() {
     );
 
     elements.cards.innerHTML = filtrados.map(a => {
+        const isHistorico = mostrandoHistorico;
         const color = a.status === 'confirmado' ? 'green' : a.status === 'cancelado' ? 'red' : 'yellow';
         const zapLink = a.whatsapp ? a.whatsapp.replace(/\D/g, '') : '';
         const unique = a.id;
         
+        // Card class diferente para histórico
+        const cardClass = isHistorico 
+            ? "history-card relative p-6 rounded-[35px] flex flex-col fade-in overflow-hidden transition-all duration-300"
+            : "bg-white p-6 rounded-[35px] border border-gray-100 card-shadow flex flex-col fade-in relative overflow-hidden";
+        
+        // Badge class diferente para histórico
+        const badgeClass = isHistorico 
+            ? "badge-finalizado text-[9px] font-900 px-3 py-1.5 rounded-full uppercase"
+            : `text-[9px] font-900 px-3 py-1.5 rounded-full uppercase bg-${color}-50 text-${color}-600`;
+        
+        // Inner box class diferente
+        const innerBoxClass = isHistorico
+            ? "inner-box rounded-3xl p-4 mb-4 space-y-3"
+            : "bg-gray-50 rounded-3xl p-4 mb-4 space-y-3";
+        
         return `
-        <div data-id="${a.id}" class="bg-white p-6 rounded-[35px] border border-gray-100 card-shadow flex flex-col fade-in relative overflow-hidden">
-            ${!a.funcionario ? '<div class="absolute top-0 right-0 bg-red-500 text-white text-[8px] font-900 px-3 py-1 rounded-bl-xl uppercase">Sem Equipe</div>' : ''}
+        <div data-id="${a.id}" class="${cardClass}">
+            ${!a.funcionario && !isHistorico ? '<div class="absolute top-0 right-0 bg-red-500 text-white text-[8px] font-900 px-3 py-1 rounded-bl-xl uppercase">Sem Equipe</div>' : ''}
             <div class="flex justify-between items-start mb-4">
                 <div class="max-w-[70%]">
-                    <h3 class="font-800 text-secondary truncate uppercase text-sm">${a.nomeCompleto || 'Visitante'}</h3>
-                    <a href="https://wa.me/${zapLink}" target="_blank" class="text-[11px] text-gray-400 font-bold flex items-center gap-1 mt-1 hover:text-green-600">
-                        <i class="ph ph-whatsapp-logo text-green-500 text-sm"></i> ${a.whatsapp || '-'}
+                    <h3 class="font-800 ${isHistorico ? 'text-white' : 'text-secondary'} truncate uppercase text-sm">${a.nomeCompleto || 'Visitante'}</h3>
+                    <a href="https://wa.me/${zapLink}" target="_blank" class="text-[11px] ${isHistorico ? 'text-historyLight' : 'text-gray-400'} font-bold flex items-center gap-1 mt-1 hover:text-green-400">
+                        <i class="ph ph-whatsapp-logo text-green-400 text-sm"></i> ${a.whatsapp || '-'}
                     </a>
                 </div>
-                <span class="text-[9px] font-900 px-3 py-1.5 rounded-full uppercase bg-${color}-50 text-${color}-600">${a.status === 'pendente' ? 'Aguardando' : a.status}</span>
+                <span class="${badgeClass}">${a.status === 'pendente' ? 'Aguardando' : a.status}</span>
             </div>
-            <div class="bg-gray-50 rounded-3xl p-4 mb-4 space-y-3">
+            <div class="${innerBoxClass}">
                 <div class="flex items-start gap-3 overflow-hidden">
-                    <i class="ph ph-stethoscope text-primary mt-0.5"></i> 
-                    <span class="text-xs font-800 text-gray-500 uppercase break-words flex-1">${a.servico || 'Sessão Geral'}</span>
+                    <i class="ph ph-stethoscope ${isHistorico ? 'text-historyLight' : 'text-primary'} mt-0.5"></i> 
+                    <span class="text-xs font-800 ${isHistorico ? 'text-historyLight' : 'text-gray-500'} uppercase break-words flex-1">${a.servico || 'Sessão Geral'}</span>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <label class="sr-only" for="edat-${unique}">Data</label>
-                    <input type="date" id="edat-${unique}" value="${a.data || ''}" class="edit-data bg-white border border-gray-100 rounded-xl px-2 py-2 text-[10px] font-bold outline-none">
+                    <input type="date" id="edat-${unique}" value="${a.data || ''}" class="edit-data ${isHistorico ? '!bg-indigo-900/50 !text-white !border-indigo-500/30' : 'bg-white border border-gray-100'} rounded-xl px-2 py-2 text-[10px] font-bold outline-none">
                     <label class="sr-only" for="ehor-${unique}">Hora</label>
-                    <input type="time" id="ehor-${unique}" value="${a.horario || ''}" class="edit-hora bg-white border border-gray-100 rounded-xl px-2 py-2 text-[10px] font-bold outline-none">
+                    <input type="time" id="ehor-${unique}" value="${a.horario || ''}" class="edit-hora ${isHistorico ? '!bg-indigo-900/50 !text-white !border-indigo-500/30' : 'bg-white border border-gray-100'} rounded-xl px-2 py-2 text-[10px] font-bold outline-none">
                 </div>
                 <label class="sr-only" for="efun-${unique}">Funcionário</label>
-                <select id="efun-${unique}" class="edit-func w-full bg-white border border-gray-100 rounded-xl px-3 py-2 text-[10px] font-bold outline-none text-secondary">
+                <select id="efun-${unique}" class="edit-func w-full ${isHistorico ? '!bg-indigo-900/50 !text-white !border-indigo-500/30' : 'bg-white border border-gray-100'} rounded-xl px-3 py-2 text-[10px] font-bold outline-none">
                     <option value="">Sem Funcionário</option>
                     ${funcionarios.map(f => `<option value="${f.nome}" ${a.funcionario === f.nome ? 'selected' : ''}>${f.nome}</option>`).join('')}
                 </select>
             </div>
             <div class="flex gap-2">
-                ${a.status === 'confirmado' ? `<button onclick="window.setStatus('${a.id}', 'finalizado')" class="flex-1 bg-primary text-white py-4 rounded-2xl text-[10px] font-900 uppercase btn-hover">Finalizar</button>` : ''}
-                ${a.status === 'finalizado' ? `<button onclick="window.setStatus('${a.id}', 'confirmado')" class="flex-1 bg-gray-100 text-gray-500 py-4 rounded-2xl text-[10px] font-900 uppercase">Reabrir</button>` : ''}
+                ${a.status === 'confirmado' ? `<button onclick="window.abrirModalFinalizacao('${a.id}')" class="flex-1 bg-primary text-white py-4 rounded-2xl text-[10px] font-900 uppercase btn-hover">Finalizar</button>` : ''}
+                ${a.status === 'finalizado' ? `<button onclick="window.setStatus('${a.id}', 'confirmado')" class="btn-reabrir flex-1 py-4 rounded-2xl text-[10px] font-900 uppercase transition-all">Reabrir</button>` : ''}
                 ${a.status === 'pendente' ? `<button onclick="window.abrirConfirmacao('${a.id}')" class="flex-1 bg-primary text-white py-4 rounded-2xl text-[10px] font-900 uppercase btn-hover">Validar</button>` : 
                 (a.status !== 'finalizado' ? `<button onclick="window.abrirConfirmacao('${a.id}')" class="flex-1 bg-secondary text-white py-4 rounded-2xl text-[10px] font-900 uppercase btn-hover">Atualizar</button>` : '')}
-                <button onclick="window.excluir('${a.id}')" class="bg-red-50 text-red-500 px-5 rounded-2xl border border-red-100"><i class="ph ph-trash text-xl"></i></button>
+                <button onclick="window.abrirModalExclusao('${a.id}')" class="${isHistorico ? 'bg-red-500/20 text-red-300 border-red-500/30' : 'bg-red-50 text-red-500 border-red-100'} px-5 rounded-2xl border"><i class="ph ph-trash text-xl"></i></button>
             </div>
         </div>`;
     }).join('');
